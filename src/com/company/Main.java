@@ -321,7 +321,12 @@ public class Main {
             {
                 if(cName.equalsIgnoreCase(namesAr[i]))
                 {
+                    String RGBtripfull = "";
                     System.out.println("Hexadecimal: " + hexesAr[i]);
+                    for(int x = 0; x < 7; x=x+2)
+                    {
+                        String hexPart = hexesAr[i].substring(x, x+2);
+                    }
                 }
             }
         }
