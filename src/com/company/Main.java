@@ -6,11 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner inputS = new Scanner(System.in);
-        Scanner inputI = new Scanner(System.in);
-        System.out.println("Choose to enter a color name (1) , RGB triplet (2), or hexadecimal (3). (Input 1, 2, or 3)");
-        int choice = inputI.nextInt();
-
         String names = "AliceBlue \n" +
                 "AntiqueWhite \n" +
                 "Aqua \n" +
@@ -159,7 +154,6 @@ public class Main {
                 "WhiteSmoke \n" +
                 "Yellow \n" +
                 "YellowGreen \n";
-
         String namesAr [] = names.split(" \n");
 
         String hexes = "F0F8FF\n" +
@@ -310,24 +304,37 @@ public class Main {
                 "F5F5F5\n" +
                 "FFFF00\n" +
                 "9ACD32";
-
         String hexesAr [] = hexes.split("\n");
+
+        Scanner inputS = new Scanner(System.in);
+        Scanner inputI = new Scanner(System.in);
+        System.out.println("Choose to enter a color name (1) , RGB triplet (2), or hexadecimal (3). (Input 1, 2, or 3)");
+        int choice = inputI.nextInt();
 
         if(choice == 1)
         {
             System.out.println("Enter the color name");
             String cName = inputS.nextLine();
+            boolean found = false;
             for(int i = 0; i<namesAr.length; i++)
             {
                 if(cName.equalsIgnoreCase(namesAr[i]))
                 {
+                    found = true;
                     String RGBtripfull = "";
                     System.out.println("Hexadecimal: " + hexesAr[i]);
-                    for(int x = 0; x < 7; x=x+2)
+                    for(int x = 0; x < hexesAr[i].length(); x=x+2)
                     {
                         String hexPart = hexesAr[i].substring(x, x+2);
+                        Integer RGBPart = Integer.parseInt(hexPart, 16);
+                        RGBtripfull = RGBtripfull + RGBPart + " ";
                     }
+                    System.out.println("RGB Triplet: " + RGBtripfull);
                 }
+            }
+            if(!found)
+            {
+                System.out.println("Sorry, that is not one of the 140 common color names.");
             }
         }
 
@@ -341,15 +348,53 @@ public class Main {
             {
                 int a  = Integer.parseInt(RGB[i]);
                 String hexPart = Integer.toHexString(a);
+                if(hexPart.equals("0"))
+                {
+                    hexPart += "0";
+                }
                 hex += hexPart;
             }
             System.out.println("Hexadecimal: " + hex);
+            boolean found = false;
+            for(int i = 0; i<namesAr.length; i++)
+            {
+                if(hex.equalsIgnoreCase(hexesAr[i]))
+                {
+                    found = true;
+                    System.out.println("Color name: " + namesAr[i]);
+                }
+            }
+            if(!found)
+            {
+                System.out.println("Sorry, that RGB triplet does not have one of the 140 common color names.");
+            }
         }
 
         if(choice == 3)
         {
             System.out.println("Enter the hexadecimal");
             String hexa = inputS.nextLine();
+            String RGBtripfull = "";
+            for(int x = 0; x < hexa.length(); x=x+2)
+            {
+                String hexPart = hexa.substring(x, x+2);
+                Integer RGBPart = Integer.parseInt(hexPart, 16);
+                RGBtripfull = RGBtripfull + RGBPart + " ";
+            }
+            System.out.println("RGB Triplet: " + RGBtripfull);
+            boolean found = false;
+            for(int i = 0; i<namesAr.length; i++)
+            {
+                if(hexa.equalsIgnoreCase(hexesAr[i]))
+                {
+                    found = true;
+                    System.out.println("Color name: " + namesAr[i]);
+                }
+            }
+            if(!found)
+            {
+                System.out.println("Sorry, that hexadecimal does not have one of the 140 common color names.");
+            }
         }
 
     }
